@@ -120,24 +120,58 @@ makeBroccoli();
 
 // Bonus 2 - Promise all
 
-const allMyPromises = Promise.all([promise0, promise1, promise2, promise3, promise4, promise5, promise6, promise7])
 
-allMyPromises.then(allValues => {
-  allValues.forEach((value, index) => {
-    obtainInstruction('brusselsSprouts', index).then(instruction => {
+const promise0 = obtainInstruction('brusselsSprouts', 0);
+const promise1 = obtainInstruction('brusselsSprouts', 1);
+const promise2 = obtainInstruction('brusselsSprouts', 2);
+const promise3 = obtainInstruction('brusselsSprouts', 3);
+const promise4 = obtainInstruction('brusselsSprouts', 4);
+const promise5 = obtainInstruction('brusselsSprouts', 5);
+const promise6 = obtainInstruction('brusselsSprouts', 6);
+
+Promise.all([promise0, promise1, promise2, promise3, promise4, promise5, promise6])
+
+// I don't understand this part:
+  .then((allValues) => {
+  allValues.forEach((instruction) => {
       document.querySelector("#brusselsSprouts").innerHTML += `<li>${instruction}</li>`
     });
-  });
+//---------------------------------------------------------------------------------------    
   document.querySelector("#brusselsSprouts").innerHTML += `<li>Brussels sprouts are ready!</li>`;
   document.querySelector("#brusselsSproutsImg").removeAttribute("hidden");
-}).catch(error => {
-  console.log(error)
-})
+}).catch(error => console.log(error))
 
-// const promise0 = obtainInstruction('broccoli', 0);
-// document.querySelector("#broccoli").innerHTML += `<li>${promise0}</li>`;
-// const promise1 = obtainInstruction('broccoli', 1);
-// document.querySelector("#broccoli").innerHTML += `<li>${promise1}</li>`
 
-// Promise.all( [promise0, promise1] )
+// Bonus 2
+// Using Promise.all() with async/await syntax:
+/*
+
+const pr0 = obtainInstruction('brusselsSprouts', 0);
+const pr1 = obtainInstruction('brusselsSprouts', 1);
+const pr2 = obtainInstruction('brusselsSprouts', 2);
+const pr3 = obtainInstruction('brusselsSprouts', 3);
+const pr4 = obtainInstruction('brusselsSprouts', 4);
+const pr5 = obtainInstruction('brusselsSprouts', 5);
+const pr6 = obtainInstruction('brusselsSprouts', 6);
+
+async function makeBrusselSprouts() {
+  try {
+    const values = await Promise.all([pr0, pr1, pr2, pr3, pr4, pr5, pr6])
+    
+    values.forEach((instruction) => {
+      document.querySelector("#brusselsSprouts").innerHTML += `<li>${instruction}</li>`;
+    })
+    
+    document.querySelector("#brusselsSprouts").innerHTML += `<li>Brussels sprouts are ready!</li>`;
+    document.querySelector("#brusselsSproutsImg").removeAttribute("hidden");  
+    
+  } catch (error) {
+    console.log(err)
+  }    
+}
+
+makeBrusselSprouts();
+
+*/
+
 
